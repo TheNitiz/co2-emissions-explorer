@@ -6,11 +6,19 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DB_HOST = os.getenv("DB_HOST")
-DB_PORT = os.getenv("DB_PORT")
-DB_USER = os.getenv("DB_USER")
-DB_PASSWORD = os.getenv("DB_PASSWORD")
-DB_NAME = os.getenv("DB_NAME")
+
+def get_secret(key):
+    try:
+        return st.secrets[key]
+    except (KeyError, FileNotFoundError):
+        return os.getenv(key)
+
+
+DB_HOST = get_secret("DB_HOST")
+DB_PORT = get_secret("DB_PORT")
+DB_USER = get_secret("DB_USER")
+DB_PASSWORD = get_secret("DB_PASSWORD")
+DB_NAME = get_secret("DB_NAME")
 
 
 @st.cache_resource
@@ -18,6 +26,7 @@ def get_engine():
     """Create and cache a single database engine for the app's lifetime."""
     connection_string = (
         f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+        f"?ssl_verify_cert=false"
     )
     return create_engine(connection_string)
 
