@@ -1,4 +1,5 @@
 import os
+import ssl
 import pandas as pd
 import streamlit as st
 from sqlalchemy import create_engine
@@ -24,11 +25,12 @@ DB_NAME = get_secret("DB_NAME")
 @st.cache_resource
 def get_engine():
     """Create and cache a single database engine for the app's lifetime."""
-    connection_string = (
-        f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-        f"?ssl_verify_cert=false"
-    )
-    return create_engine(connection_string)
+    ssl_context = ssl.create_default_context()
+    ssl_context.check_hostname = False
+    ssl_context.verify_mode = ssl.CERT_NONE
+
+    connection_string = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+    return create_engine(connection_string, connect_args={"ssl": ssl_context})
 
 
 @st.cache_data(ttl=3600)
