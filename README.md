@@ -33,10 +33,10 @@ and fair-use details.
 
 ## Architecture
 
-CSV (Global Carbon Budget) 
-↓ Python import script (pandas + SQLAlchemy)
-MySQL on Aiven 
-↓ SQLAlchemy + pymysql, cached queries 
+CSV (Global Carbon Budget) \
+↓ Python import script (pandas + SQLAlchemy) \
+MySQL on Aiven \
+↓ SQLAlchemy + pymysql, cached queries \ 
 Streamlit app (5 pages) → deployed on Streamlit Cloud
 
 ## Local Setup
@@ -51,10 +51,10 @@ pip install -r requirements.txt
 
 Create a `.env` file with your own database credentials:
 
-DB_HOST=...
-DB_PORT=...
-DB_USER=...
-DB_PASSWORD=...
+DB_HOST=... /
+DB_PORT=... /
+DB_USER=... /
+DB_PASSWORD=... /
 DB_NAME=carbon
 
 Run:
