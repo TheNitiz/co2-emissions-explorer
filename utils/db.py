@@ -30,7 +30,12 @@ def get_engine():
     ssl_context.verify_mode = ssl.CERT_NONE
 
     connection_string = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-    return create_engine(connection_string, connect_args={"ssl": ssl_context})
+    return create_engine(
+        connection_string,
+        connect_args={"ssl": ssl_context},
+        pool_pre_ping=True,
+        pool_recycle=280,
+    )
 
 
 @st.cache_data(ttl=3600)
