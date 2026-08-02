@@ -2,6 +2,8 @@ import streamlit as st
 import plotly.express as px
 from utils.queries import get_top_emitters, get_fastest_decliners
 from utils.db import run_query
+from utils.sidebar_decor import add_sidebar_decoration
+add_sidebar_decoration()
 
 st.set_page_config(page_title="Leaderboard", page_icon="🏆", layout="wide")
 
@@ -10,6 +12,8 @@ st.caption("Who emits the most — and who's cutting the fastest.")
 
 max_year = run_query("SELECT MAX(Year) AS y FROM emission WHERE Country <> 'Global'").iloc[0]["y"]
 max_year = int(max_year)
+
+
 
 tab1, tab2 = st.tabs(["Top Emitters", "Fastest Coal Decliners"])
 
@@ -30,6 +34,7 @@ with tab1:
     fig.update_traces(marker_color="#457B9D", texttemplate="%{text:.0f}", textposition="outside")
     fig.update_layout(margin=dict(t=20), height=500)
     st.plotly_chart(fig, use_container_width=True)
+    
 
     st.dataframe(df_top.reset_index(drop=True), use_container_width=True)
 

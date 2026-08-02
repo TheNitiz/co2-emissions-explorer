@@ -123,3 +123,34 @@ def get_country_peak_year(country: str):
         LIMIT 1;
     """
     return run_query(sql)
+
+def get_country_year_matrix(metric: str = "Total"):
+    """Full country x year matrix for a given metric, used in the data matrix view."""
+    allowed_metrics = {"Total", "Coal", "Oil", "Gas", "Cement", "Flaring", "Other", "PerCapita"}
+    if metric not in allowed_metrics:
+        raise ValueError(f"Invalid metric: {metric}")
+
+    sql = f"""
+        SELECT Country, Year, {metric} AS Value
+        FROM {TABLE}
+        WHERE {metric} IS NOT NULL AND Country <> 'Global'
+        ORDER BY Country, Year;
+    """
+    return run_query(sql)
+
+def get_global_fuel_totals():
+    """Global emissions by fuel type, summed across all countries, per year."""
+    sql = f"""
+        SELECT Year,
+               SUM(Coal) AS Coal,
+               SUM(Oil) AS Oil,
+               SUM(Gas) AS Gas,
+               SUM(Cement) AS Cement,
+               SUM(Flaring) AS Flaring,
+               SUM(Other) AS Other
+        FROM {TABLE}
+        WHERE Country <> 'Global'
+        GROUP BY Year
+        ORDER BY Year;
+    """
+    return run_query(sql)

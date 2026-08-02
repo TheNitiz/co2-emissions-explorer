@@ -11,7 +11,7 @@ DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_NAME = os.getenv("DB_NAME")
 
-CSV_PATH = "C:/Users/nitiz/Downloads/co2_emit.csv"
+CSV_PATH = "C:/Users/nitiz/Downloads/co2_emits.csv"
 
 engine = create_engine(
     f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}?ssl_verify_cert=false"
