@@ -1,5 +1,7 @@
 import streamlit as st
 from utils.db import run_query
+from utils.sidebar_decor import add_sidebar_decoration
+add_sidebar_decoration()
 
 st.set_page_config(page_title="About", page_icon="ℹ️", layout="wide")
 
