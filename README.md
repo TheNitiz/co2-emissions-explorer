@@ -4,9 +4,7 @@ An interactive data explorer covering 270+ years of global CO2 emissions,
 built end-to-end: cloud MySQL database → Python data pipeline → deployed
 Streamlit + Plotly app.
 
-**[🔗 Live App](https://your-app-name.streamlit.app)**
-
-![Landing page screenshot](assets/screenshot-home.png)
+**[🔗 Live App](https://co2emit.streamlit.app/)**
 
 ## Features
 
@@ -51,10 +49,10 @@ pip install -r requirements.txt
 
 Create a `.env` file with your own database credentials:
 
-DB_HOST=... /
-DB_PORT=... /
-DB_USER=... /
-DB_PASSWORD=... /
+DB_HOST=... \
+DB_PORT=... \
+DB_USER=... \
+DB_PASSWORD=... \
 DB_NAME=carbon
 
 Run:
